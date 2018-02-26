@@ -1,0 +1,17 @@
+	{
+		"manifest_version":2,
+		"name" : "Chan",
+		"icons":{
+			 "16": "icon16.png"
+		},
+		"version":"0.001",
+		"content_scripts":[
+			{
+				"matches":[
+					"http://boards.4chan.org/*/catalog",
+					"https://pt.xhamster.com/*"
+				],
+				"js":["bg.js"]
+			}
+		]
+	}
