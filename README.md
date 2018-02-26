@@ -1,3 +1,2 @@
-# plugin chrome edit 4chan catalog
-
-# 4chan-edited.github.io
+Add the extension in chrome, go to any 4chan catalog page and you're done.
+Still in development.
