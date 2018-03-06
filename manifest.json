@@ -8,8 +8,7 @@
 		"content_scripts":[
 			{
 				"matches":[
-					"http://boards.4chan.org/*/catalog",
-					"https://pt.xhamster.com/*"
+					"http://boards.4chan.org/*/catalog"
 				],
 				"js":["bg.js"]
 			}
