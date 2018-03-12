@@ -121,13 +121,14 @@ function clicks(){
 	back = document.getElementById("back")
 
 	next.onclick=function(){
-		pagina+=3
-		invasion(0+pagina,3+pagina)
+		pagina+=10
+		invasion(0+pagina,10+pagina)
+
 	}
 
 	back.onclick=function(){
-		pagina-=3
-		invasion(0+pagina,3+pagina)
+		pagina-=10
+		invasion(0+pagina,10+pagina)
 	}
 
 	window.onkeyup=function(e){
@@ -157,7 +158,7 @@ function clicks(){
 		}
 
 		if(e.key == "+"){
-					
+
 
 			vx=0
 			vy=0
@@ -174,9 +175,27 @@ function clicks(){
 			else
 				out.innerHTML="<div><img style='transform:scale(1) translate(0px,0px)' height=800 src='"+ele[posicaoclick].getAttribute("val")+"'><a id=linkdown download href='"+ele[posicaoclick].getAttribute("val")+"'>LINK</a></div>"
 
+
+
 			nphoto(ele[posicaoclick+1].getAttribute("val"))
 
+
+
 			out.querySelector("img").ondragstart=function(){return false}
+
+
+
+
+			if (vide.requestFullscreen) {
+				vide.requestFullscreen();
+			} else if (vide.mozRequestFullScreen) {
+				vide.mozRequestFullScreen();
+			} else if (vide.webkitRequestFullscreen) {
+				vide.webkitRequestFullscreen();
+			}
+
+
+
 		}
 
 		if(e.key == "-"){
@@ -198,6 +217,8 @@ function clicks(){
 			nphoto(ele[posicaoclick-1].getAttribute("val"))
 
 			out.querySelector("img").ondragstart=function(){return false}
+
+			setTimeout(1,vide.webkitRequestFullscreen())
 		}
 
 		timevideo = vide.duration/10
@@ -214,6 +235,32 @@ function clicks(){
 		if(e.key == "0") vide.currentTime = timevideo*0;
 	}
 
+}
+
+function full(){
+	console.log('go go')
+	var s = setInterval(function(){
+
+		if(typeof(vide) != "undefined") { 
+
+			vy = vide.clientHeight
+			wy = window.innerHeight
+
+			if(vy != wy){
+
+				window.innerHeight = vide.clientHeight
+
+				vide.webkitRequestFullscreen()
+				clearInterval(s)
+				console.log('ok')
+
+			}
+
+		}else{
+			clearInterval(s)
+		}
+
+	},0)
 }
 
 
@@ -285,25 +332,16 @@ function nphoto(nx){
 
 zoom = 1
 
-window.onwheel=function(e){
-	console.log(e.deltaY)
+// window.onwheel=function(e){
 
-	if(e.deltaY < 0){
+	window.onwheel = e => {
+    // zoom = e.deltaY < 0 ? zoom+0.1 : zoom-0.1
 
-		zoom+=0.1
-		
-		// out.querySelector("img").style.transition = "0.2s"
-		out.querySelector("img").style.transform = out.querySelector("img").style.transform.replace(/sc.+?\)/g,"scale("+zoom+")")
-		
-		
+    zoom += e.deltaY < 0 ? 0.1 : -0.1
 
-	}else{
+    o2 = out.querySelector("img").style
 
-		zoom-=0.1
-
-		out.querySelector("img").style.transform = out.querySelector("img").style.transform.replace(/sc.+?\)/g,"scale("+zoom+")")
-
-	}
+    o2.transform = o2.transform.replace(/sc.+?\)/g,"scale("+zoom+")")
 }
 
 vx=0
