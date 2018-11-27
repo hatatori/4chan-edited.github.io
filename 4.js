@@ -18,7 +18,8 @@ cinema.out = [
 	"background-color:black",
 	"float:left",
 	"left:0",
-	"position:fixed"
+	"position:fixed",
+	"text-align:center;"
 ]
 
 cinema.inn = [
@@ -43,7 +44,8 @@ video.style = [
 ]
 
 img.style = [
-	"max-height:100%"
+	"max-height:100vh",
+	"max-width:100%"
 ]
 
 
@@ -56,7 +58,7 @@ img.c = "img{"+img.style.join(";")+"}"
 
 
 style = document.createElement("style")
-style.innerHTML = "*{padding:0;margin:0;background-color:black}.el{display:inline-block}#invisible{display:'none'}#visible{display:'block'}"+cinema.out.c+cinema.inn.c+sid.c+video.c+img.c
+style.innerHTML = "video{max-height:100vh;}*{padding:0;margin:0;background-color:black}.el{display:inline-block}#invisible{display:'none'}#visible{display:'block'}"+cinema.out.c+cinema.inn.c+sid.c+video.c+img.c
 
 
 sid = document.createElement("div");
@@ -85,9 +87,9 @@ for(i = 0;i<ele.length;i++){
 		link = this.getAttribute("val")
 
 		if(link.split(".").pop() == "jpg" || link.split(".").pop() == "png" || link.split(".").pop() == "gif" )
-			inn.innerHTML = "<img src='"+link+"' style='max-width=90vh'>"
+			inn.innerHTML = "<a href='"+link+"' target='_blank'><img src='"+link+"'><br></a><a href='"+link+"'>"+link+"</a>"
 		else
-			inn.innerHTML = "<video id=vide controls autoplay src='"+link+"' style='max-width=90vh'></video>"
+			inn.innerHTML = "<video id=vide controls autoplay src='"+link+"'></video><br><a href='"+link+"'>"+link+"</a>"
 	}
 
 window.onkeyup=function(e){
