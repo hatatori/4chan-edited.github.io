@@ -9,7 +9,7 @@ for( i=0 ; i<f.length;i++){
 }
 
 sbody = "body{background-color:black;text-align:center;}"
-simg = "img{margin:10}"
+simg = "img{margin:5;height:100}"
 sfora = "#fora{width: 100%;height: 100%; background-color: rgba(0,0,0,0.5);position: fixed;top: 0;left: 0;display:none}"
 svid = "#vid{max-width: 1000;max-height:90vh;position:absolute;right: 0;left: 0;bottom: 0;top: 0;margin: auto;}"
 
@@ -28,11 +28,11 @@ window.onclick=function(e){
 		extencao = link.split(".").pop()
 
 		if(extencao == "webm"){
-			dentro.innerHTML = "<video id='vid' controls autoplay src='"+link+"'></video>"
+			dentro.innerHTML = "<video id='vid' controls autoplay src='"+link+"'></video><br><a href='"+link+"'>"+link+"</a>"
 			showHide(fora)
 
 		}else{
-			dentro.innerHTML = "<img id='vid' src='"+link+"' >"
+			dentro.innerHTML = "<img id='vid' src='"+link+"' ><br><a href='"+link+"'>"+link+"</a>"
 			showHide(fora)
 			drag(vid)
 
@@ -49,8 +49,8 @@ window.onclick=function(e){
 
 window.onkeyup=function(e){
 	if(e.key == "Escape"){
-		showHide(fora)
 		dentro.innerHTML = ""
+		showHide(fora)
 	}
 }
 
