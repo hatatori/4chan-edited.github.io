@@ -12,7 +12,7 @@
 					"http://boards.4chan.org/*/thread/*",
 					"http://boards.4channel.org/*/thread/*"
 				],
-				"js":["4.js"]
+				"js":["4c.js"]
 			}
 		]
 	}
