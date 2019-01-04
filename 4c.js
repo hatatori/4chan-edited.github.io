@@ -76,9 +76,9 @@ function zoom(div){
 	div.onwheel=function(e){
 
 		if(e.deltaY < 0)
-			kk+=0.1
+			kk+=0.3
 		else
-			kk-=0.1
+			kk-=0.3
 
 		this.style.transform = "scale("+kk+")"
 
@@ -111,8 +111,8 @@ function drag(div){
 	}
 
 	document.onmousemove=function(e){
-		x = e.movementX
-		y = e.movementY
+		x = e.movementX*3
+		y = e.movementY*3
 
 		if(e.buttons > 0 && k['drag']){
 			k.style.top = parseInt(k.style.top)+y+"px"
