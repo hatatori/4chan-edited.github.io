@@ -61,8 +61,17 @@ window.onclick=function(e){
 
 
 function go(n){
+
+	
 	nn = n.getAttribute("val")
+	extencao = nn.split(".").pop()
 	vid.src = nn
+
+	if(extencao == "webm"){
+		dentro.innerHTML = "<video id='vid' controls autoplay src='"+nn+"'></video><br><a href='"+nn+"'>"+nn+"</a>"
+	}else{
+		dentro.innerHTML = "<img id='vid' src='"+nn+"' style='width:auto;height:auto'><br><a href='"+nn+"'>"+nn+"</a>"
+	}
 }
 
 window.onkeyup=function(e){
@@ -71,11 +80,11 @@ window.onkeyup=function(e){
 		showHide(fora)
 	}
 
-	if(e.key == "+") go(s[parseInt(++posicao)])
-	if(e.key == "-") go(s[parseInt(--posicao)])
+	if(e.key == "+") go(s[parseInt(++posicao)]);
+	if(e.key == "-") go(s[parseInt(--posicao)]);
 	if(e.key == "f") vid.requestFullscreen();	
-
 }
+
 
 
 
