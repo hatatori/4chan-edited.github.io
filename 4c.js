@@ -27,6 +27,7 @@ window.onclick=function(e){
 		link = e.path[1].getAttribute("val")
 		extencao = link.split(".").pop()
 
+
 		if(extencao == "webm"){
 			dentro.innerHTML = "<video id='vid' controls autoplay src='"+link+"'></video><br><a href='"+link+"'>"+link+"</a>"
 			showHide(fora)
@@ -36,10 +37,12 @@ window.onclick=function(e){
 			showHide(fora)
 			drag(vid)
 
+
 			vid.onclick=function(e){
 				e.stopPropagation()
 				e.preventDefault()
 			}
+			
 			zoom(vid)
 		}
 
@@ -67,18 +70,19 @@ function showHide(div){
 
 fora.onclick=()=>{showHide(fora)}
 
+
 function zoom(div){
-    k = 1
-    div.onwheel=function(e){
+	kk  = 1
+	div.onwheel=function(e){
 
-        if(e.deltaY < 0)
-            k+=0.1
-        else
-            k-=0.1
+		if(e.deltaY < 0)
+			kk+=0.1
+		else
+			kk-=0.1
 
-        this.style.transform = "scale("+k+")"
+		this.style.transform = "scale("+kk+")"
 
-    }
+	}
 }
 
 
