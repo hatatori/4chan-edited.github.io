@@ -32,7 +32,7 @@ window.onclick=function(e){
 			showHide(fora)
 
 		}else{
-			dentro.innerHTML = "<img id='vid' src='"+link+"' ><br><a href='"+link+"'>"+link+"</a>"
+			dentro.innerHTML = "<img id='vid' src='"+link+"' style='width:auto;height:auto'><br><a href='"+link+"'>"+link+"</a>"
 			showHide(fora)
 			drag(vid)
 
