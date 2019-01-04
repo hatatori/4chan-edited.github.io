@@ -4,8 +4,8 @@ t = ""
 for( i=0 ; i<f.length;i++){
 	img = f[i].querySelector("img").src
 	link = f[i].href
-
-	t += "<span val='"+link+"'><img src='"+img+"'></span>"
+	pos = i
+	t += "<span pos="+pos+" val='"+link+"'><img src='"+img+"'></span>"
 }
 
 sbody = "body{background-color:black;text-align:center;}"
@@ -22,11 +22,19 @@ estilo.innerHTML = simg+sfora+svid+sbody
 
 document.head.appendChild(estilo)
 
+
 window.onclick=function(e){
+	
+	s = document.querySelectorAll("span")
+	
 	try{
 		link = e.path[1].getAttribute("val")
 		extencao = link.split(".").pop()
-
+		
+		posicao = e.path[1].getAttribute("pos")
+		console.log(posicao)
+		b = e.path[1].getAttribute("pos")
+		
 
 		if(extencao == "webm"){
 			dentro.innerHTML = "<video id='vid' controls autoplay src='"+link+"'></video><br><a href='"+link+"'>"+link+"</a>"
@@ -50,12 +58,26 @@ window.onclick=function(e){
 	}catch(err){}
 }
 
+
+
+function go(n){
+	nn = n.getAttribute("val")
+	vid.src = nn
+}
+
 window.onkeyup=function(e){
 	if(e.key == "Escape"){
 		dentro.innerHTML = ""
 		showHide(fora)
 	}
+
+	if(e.key == "+") go(s[parseInt(++posicao)])
+	if(e.key == "-") go(s[parseInt(--posicao)])
+	if(e.key == "f") vid.requestFullscreen();	
+
 }
+
+
 
 function showHide(div){
 	if(div.style.display == "" || div.style.display == "none" ){
