@@ -1,16 +1,12 @@
-	{
+{
 		"manifest_version":2,
 		"name" : "Chan",
-		"icons":{
-			 "16": "icon16.png"
-		},
 		"version":"0.001",
 		"content_scripts":[
 			{
 				"matches":[
-					// "http://boards.4chan.org/*/thread/*"
-					"http://boards.4chan.org/*/thread/*",
-					"http://boards.4channel.org/*/thread/*"
+					"http://boards.4chan.org/*/catalog",
+					"http://boards.4channel.org/*/catalog"
 				],
 				"js":["4c.js"]
 			}
