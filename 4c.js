@@ -1,158 +1,62 @@
-f = document.querySelectorAll(".fileThumb")
-t = ""
+window.onload=function(){
 
-for( i=0 ; i<f.length;i++){
-	img = f[i].querySelector("img").src
-	link = f[i].href
-	pos = i
-	t += "<span pos="+pos+" val='"+link+"'><img src='"+img+"'></span>"
-}
+	//pega tudo do catálogo
 
-sbody = "body{background-color:black;text-align:center;}"
-simg = "img{margin:5;height:100;width:20vh}"
-sfora = "#fora{width: 100%;height: 100%; background-color: rgba(0,0,0,0.5);position: fixed;top: 0;left: 0;display:none}"
-svid = "#vid{max-width: 1000;max-height:90vh;position:absolute;right: 0;left: 0;bottom: 0;top: 0;margin: auto;}"
+	thread = document.getElementsByClassName("thread")
+	im = []
+	div = ""
 
-t += "<div id='fora' style="+sfora+"><div id='dentro'></div></div>"
-
-document.write(t)
-
-estilo = document.createElement("style")
-estilo.innerHTML = simg+sfora+svid+sbody
-
-document.head.appendChild(estilo)
-
-
-window.onclick=function(e){
-	
-	s = document.querySelectorAll("span")
-	
-	try{
-		link = e.path[1].getAttribute("val")
-		extencao = link.split(".").pop()
-		
-		posicao = e.path[1].getAttribute("pos")
-		console.log(posicao)
-		b = e.path[1].getAttribute("pos")
-		
-
-		if(extencao == "webm"){
-			dentro.innerHTML = "<video id='vid' controls autoplay src='"+link+"'></video><br><a href='"+link+"'>"+link+"</a>"
-			showHide(fora)
-
-		}else{
-			dentro.innerHTML = "<img id='vid' src='"+link+"' style='width:auto;height:auto'><br><a href='"+link+"'>"+link+"</a>"
-			showHide(fora)
-			drag(vid)
-
-
-			vid.onclick=function(e){
-				e.stopPropagation()
-				e.preventDefault()
-			}
-			
-			zoom(vid)
+	for(i=0;i<thread.length;i++){
+		im[i] = { 
+			img:thread[i].querySelector("img").src,
+			link:thread[i].querySelector("a").href
 		}
-
-
-	}catch(err){}
-}
-
-
-
-function go(n){
-
-	
-	nn = n.getAttribute("val")
-	extencao = nn.split(".").pop()
-	vid.src = nn
-
-	if(extencao == "webm"){
-		dentro.innerHTML = "<video id='vid' controls autoplay src='"+nn+"'></video><br><a href='"+nn+"'>"+nn+"</a>"
-	}else{
-		dentro.innerHTML = "<img id='vid' src='"+nn+"' style='width:auto;height:auto'><br><a href='"+nn+"'>"+nn+"</a>"
-	}
-}
-
-window.onkeyup=function(e){
-	if(e.key == "Escape"){
-		dentro.innerHTML = ""
-		showHide(fora)
+		div+="<a id='tx' val="+im[i].link+"><img src='"+im[i].img+"'' width=50% max-height:100 ></a>"
 	}
 
-	if(e.key == "+") go(s[parseInt(++posicao)]);
-	if(e.key == "-") go(s[parseInt(--posicao)]);
-	if(e.key == "f") vid.requestFullscreen();	
-}
+	estilo_geral = "padding:0;margin:0;background-color:black"
+	estilo_direito = "width:20%;height:100%;position:fixed;right:0;top:0;overflow-y:scroll"
+	estilo_esquerdo = "width:80%;height:100%;"
+	estilo_iframe = "width:100%;height:100%;border:none"
 
+	d = "<div id='esquerdo' style="+estilo_esquerdo+"><iframe id='ifr' style="+estilo_iframe+"></iframe></div><div id='direito' style="+estilo_direito+">"+div+"</div>"
 
+	document.write(d)
 
+	for(i=0;i<tx.length;i++){
+		tx[i].onclick=function(e){
+			ifr.src=this.getAttribute("val")
 
-function showHide(div){
-	if(div.style.display == "" || div.style.display == "none" ){
-		div.style.display = "block"
-		document.body.style.overflow="hidden"
+			ativo = this
+		}
 	}
-	else{
-		div.style.display = "none"
-		document.body.style.overflow="auto"
-	}
-}
-
-fora.onclick=()=>{showHide(fora)}
 
 
-function zoom(div){
-	kk  = 1
-	div.onwheel=function(e){
 
-		if(e.deltaY < 0)
-			kk+=0.3
-		else
-			kk-=0.3
+	document.body.style = estilo_geral
 
-		this.style.transform = "scale("+kk+")"
+	//formata a página
+
+	ifr.onload=function(){
+
+		fl = ifr.contentDocument.body.innerHTML.match(/File: <a href=\"(.+?)\"/g)
+		fl = fl.map(e=>{return e.replace(/File: <a href=|\"/g,"")})
+
+		fil = fl.map(e=>{
+			if(e.match(/webm/g))
+				return "<video autoplay loop muted controls src='"+e+"'></video>"
+			else
+				return "<img src='"+e+"'>"
+		})
+
+		fil = fil.join("")
+
+		ifr.contentDocument.write(fil)
+
+		st = document.createElement("style")
+		s = "*{background-color:black;text-align:center;height:300}video,img{height:200;max-width:300;margin:5}"
+		st.innerHTML=s
+		ifr.contentDocument.body.appendChild(st)
 
 	}
 }
-
-
-//outra parte
-
-
-function drag(div){
-
-	if(div.style.position == "")
-		div.style.position="absolute"
-
-	div.style.top = 0
-	div.style.left = 0
-
-
-	k = div['drag'] = false
-
-	div.onmousedown=function(e){
-		this['drag'] = true
-		k = this
-	}
-
-	document.onmouseup=function(e){
-		this['drag'] = false
-		k = this
-	}
-
-	document.onmousemove=function(e){
-		x = e.movementX*3
-		y = e.movementY*3
-
-		if(e.buttons > 0 && k['drag']){
-			k.style.top = parseInt(k.style.top)+y+"px"
-			k.style.left = parseInt(k.style.left)+x+"px"
-		}		
-
-		return false
-	}
-
-}
-
-
