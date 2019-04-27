@@ -82,6 +82,16 @@ function botaoDireito(){
 		document.body.removeChild(el);
 		g.preventDefault()
 	}
+
+	ifr.contentWindow.onmousemove=function(e){
+		e.target.muted=false
+		e.target.volume=1
+	}
+
+	ifr.contentWindow.onmouseout=function(e){
+		e.target.muted=true
+		e.target.volume=0
+	}
 }
 
 
