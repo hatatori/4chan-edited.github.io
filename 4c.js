@@ -1,4 +1,9 @@
+
+
+
 window.onload=function(){
+
+	
 
 	//pega tudo do catálogo
 
@@ -33,28 +38,51 @@ window.onload=function(){
 
 	document.body.style = estilo_geral
 
+	botaoDireito()
+
 	//formata a página
 
 	ifr.onload=function(){
 
-		fl = ifr.contentDocument.body.innerHTML.match(/File: <a href=\"(.+?)\"/g)
-		fl = fl.map(e=>{return e.replace(/File: <a href=|\"/g,"")})
+		try{
+			fl = ifr.contentDocument.body.innerHTML.match(/File: <a href=\"(.+?)\"/g)
+			fl = fl.map(e=>{return e.replace(/File: <a href=|\"/g,"")})
 
-		fil = fl.map(e=>{
-			if(e.match(/webm/g))
-				return "<video autoplay loop muted controls src='"+e+"'></video>"
-			else
-				return "<a href='"+e+"' target=blank><img src='"+e+"'></a>"
-		})
+			fil = fl.map(e=>{
+				if(e.match(/webm/g))
+					return "<video autoplay loop muted controls src='"+e+"'></video>"
+				else
+					return "<a href='"+e+"' target=blank><img src='"+e+"'></a>"
+			})
 
-		fil = fil.join("")
+			fil = fil.join("")
 
-		ifr.contentDocument.write(fil)
+			ifr.contentDocument.write(fil)
 
-		st = document.createElement("style")
-		s = "*{background-color:black;text-align:center;height:300}video,img{height:200;max-width:300;margin:5}"
-		st.innerHTML=s
-		ifr.contentDocument.body.appendChild(st)
+			st = document.createElement("style")
+			s = "*{background-color:black;text-align:center;height:300}video,img{height:200;max-width:300;margin:5}"
+			st.innerHTML=s
+			ifr.contentDocument.body.appendChild(st)
 
+			botaoDireito()
+			
+		}catch(err){}
+	}
+
+}
+
+function botaoDireito(){
+	ifr.contentWindow.oncontextmenu=function(g){
+		str = g.target.src
+		el = document.createElement('textarea');
+		el.value = str;
+		document.body.appendChild(el);
+		el.select();
+		document.execCommand('copy');
+		document.body.removeChild(el);
+		g.preventDefault()
 	}
 }
+
+
+
