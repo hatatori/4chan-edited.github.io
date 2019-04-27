@@ -83,7 +83,7 @@ function botaoDireito(){
 		g.preventDefault()
 	}
 
-	ifr.contentWindow.onmousemove=function(e){
+	ifr.contentWindow.onmouseover=function(e){
 		e.target.muted=false
 		e.target.volume=1
 	}
