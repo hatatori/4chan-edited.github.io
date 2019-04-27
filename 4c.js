@@ -31,8 +31,6 @@ window.onload=function(){
 		}
 	}
 
-
-
 	document.body.style = estilo_geral
 
 	//formata a página
@@ -46,7 +44,7 @@ window.onload=function(){
 			if(e.match(/webm/g))
 				return "<video autoplay loop muted controls src='"+e+"'></video>"
 			else
-				return "<img src='"+e+"'>"
+				return "<a href='"+e+"' target=blank><img src='"+e+"'></a>"
 		})
 
 		fil = fil.join("")
