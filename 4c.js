@@ -16,10 +16,10 @@ botaoDireito()
 
 s_d1 = "*{background-color:black;text-align:center;outline:none}"
 s_d1 += "p {    width: 300;    height: 200;    text-align: center;    display: inline-block; margin:5}"
-s_d1 += "#d1 { width: 80%; height:100%;    position: absolute;    top: 0;    left: 0; overflow-y:scroll}"
+s_d1 += "#d1 { width: 90%; height:100%;    position: absolute;    top: 0;    left: 0; overflow-y:scroll}"
 s_d1 += "#d1 img, #d1 video {    max-height: 100%;    max-width: 100%; }"
-s_d2 = "#d2 {    width: 20%;   height: 100%;    background-color: black;    position: absolute;    top: 0;    right: 0;    overflow-y: scroll; }"
-s_d2 += "#d2 img {    width: 50%;    max-height: 20%; } "
+s_d2 = "#d2 {    width: 10%;   height: 100%;    background-color: black;    position: absolute;    top: 0;    right: 0;    overflow-y: scroll; }"
+s_d2 += "#d2 img {    width: 100%;    max-height: 20%; } "
 
 document.head.innerHTML = "<style>"+s_d1+s_d2+"</style>"
 
@@ -41,6 +41,7 @@ function conteudo(url){
             codigo = codigo.join("")
 
 			d1.innerHTML = codigo
+			a=0
         }
     };
     xhttp.open("GET", url, true);
@@ -72,7 +73,7 @@ function botaoDireito(){
 
     window.onmouseover=function(e){
         e.target.muted=false
-        e.target.volume=1
+        e.target.volume=0.5
         e.target.setAttribute("controls",1)
     }
 
@@ -80,5 +81,19 @@ function botaoDireito(){
         e.target.muted=true
         e.target.volume=0
         e.target.removeAttribute("controls")
+    }
+
+    a = 0
+    window.onkeyup=function(e){
+    	if(e.key == "0")
+    		a++%2
+
+    	if(a%2==0){
+    		d1.style.width="100%"
+    		d1.style.zIndex=1
+    	}else{
+    		d1.style.width="90%"
+    	}
+		console.log(a%2)
     }
 }
